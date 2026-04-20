@@ -64,27 +64,47 @@ function App() {
           {loading ? (
             <p style={currentStyle.loading}>Loading...</p>
           ) : (
-            <div style={currentStyle.answer}>
-              {answer.split("\n").map((line, index) => {
-                const trimmed = line.trim();
+<div style={currentStyle.answer}>
+  {answer.split("\n").map((line, index) => {
+    const trimmed = line.trim();
 
-                if (trimmed.startsWith("*")) {
-                  return (
-                    <ul key={index} style={currentStyle.ul}>
-                      <li>{trimmed.replace("*", "").trim()}</li>
-                    </ul>
-                  );
-                }
+    if (!trimmed) return null;
 
-                if (!trimmed) return null;
+ 
+    if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
+      return (
+        <h3 key={index} style={{ margin: "10px 0" }}>
+          {trimmed.replace(/\*\*/g, "")}
+        </h3>
+      );
+    }
 
-                return (
-                  <p key={index} style={currentStyle.p}>
-                    {trimmed}
-                  </p>
-                );
-              })}
-            </div>
+  
+    if (trimmed.startsWith("*")) {
+      return (
+        <ul key={index} style={currentStyle.ul}>
+          <li>{trimmed.replace("*", "").trim()}</li>
+        </ul>
+      );
+    }
+
+    
+    if (/^\d+\./.test(trimmed)) {
+      return (
+        <ol key={index} style={currentStyle.ul}>
+          <li>{trimmed.replace(/^\d+\.\s*/, "")}</li>
+        </ol>
+      );
+    }
+
+    
+    return (
+      <p key={index} style={currentStyle.p}>
+        {trimmed}
+      </p>
+    );
+  })}
+</div>
           )}
         </div>
       </div>
