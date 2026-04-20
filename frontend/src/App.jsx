@@ -8,7 +8,7 @@ function App() {
   const askAI = async () => {
   try {
     const res = await axios.post(
-      "https://onequery-ai.vercel.app//ask",
+      "https://onequery-ai.vercel.app/ask",
       { question }
     );
 
