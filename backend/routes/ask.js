@@ -1,6 +1,5 @@
 import express from "express";
 import axios from "axios";
-import Chat from "../models/Chat.js";
 
 const router = express.Router();
 
@@ -8,34 +7,37 @@ router.post("/", async (req, res) => {
   try {
     const { question } = req.body;
 
-    // Call Groq API
-    const aiRes = await axios.post(
+    if (!question) {
+      return res.status(400).json({ error: "Question is required" });
+    }
+
+    const response = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
       {
         model: "llama-3.1-8b-instant",
-        messages: [{ role: "user", content: question }]
+        messages: [
+          { role: "user", content: question }
+        ]
       },
       {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-          "Content-Type": "application/json"
-        }
+        },
       }
     );
 
-    const answer = aiRes.data.choices[0].message.content;
-
-    // Save to DB (logging only)
-    await Chat.create({
-      question,
-      response: answer
-    });
+    const answer = response.data.choices[0].message.content;
 
     res.json({ answer });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Something went wrong" });
+    console.log("ERROR:", err.response?.data || err.message);
+
+    res.status(500).json({
+      error: "Something went wrong",
+      details: err.response?.data || err.message
+    });
   }
 });
 
