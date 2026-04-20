@@ -9,7 +9,13 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+import cors from "cors";
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"]
+}));
 app.use(express.json());
 
 app.use("/ask", askRoute);
