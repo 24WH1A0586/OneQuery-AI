@@ -175,13 +175,14 @@ const styles = {
   dark: {
     ...base,
     container: {
-      height: "100vh",
+      minHeight: "100vh",
       display: "flex",
       justifyContent: "center",
       alignItems: "flex-start",
       paddingTop: "40px",
       background: "#0f172a",
       fontFamily: "Inter, sans-serif",
+      paddingBottom: "40px",
     },
     card: {
       background: "#111827",
@@ -203,13 +204,14 @@ const styles = {
   black: {
     ...base,
     container: {
-      height: "100vh",
+      minHeight: "100vh",
       display: "flex",
       justifyContent: "center",
       alignItems: "flex-start",
       paddingTop: "40px",
       background: "#000",
       fontFamily: "Inter, sans-serif",
+      paddingBottom: "40px",
     },
     card: {
       background: "#0a0a0a",
@@ -231,13 +233,14 @@ const styles = {
   glass: {
     ...base,
     container: {
-      height: "100vh",
+      minHeight: "100vh",
       display: "flex",
       justifyContent: "center",
       alignItems: "flex-start",
       paddingTop: "40px",
       background: "linear-gradient(135deg, #0f172a, #020617)",
       fontFamily: "Inter, sans-serif",
+      paddingBottom: "40px",
     },
     card: {
       background: "rgba(255,255,255,0.08)",
@@ -261,7 +264,7 @@ const styles = {
   hacker: {
     ...base,
     container: {
-      height: "100vh",
+      minHeight: "100vh",
       display: "flex",
       justifyContent: "center",
       alignItems: "flex-start",
@@ -269,6 +272,7 @@ const styles = {
       background: "#000",
       fontFamily: "monospace",
       color: "#00ff9f",
+      paddingBottom: "40px",
     },
     card: {
       background: "#000",
