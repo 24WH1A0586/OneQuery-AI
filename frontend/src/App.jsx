@@ -1,14 +1,25 @@
-import { useState } from "react";
-import { askQuestion } from "./api";
+import React, { useState } from "react";
+import axios from "axios";
 
 function App() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
-  const handleSubmit = async () => {
-    const res = await askQuestion(question);
+  const askAI = async () => {
+  try {
+    const res = await axios.post(
+      "https://onequery-ai.vercel.app//ask",
+      { question }
+    );
+
+    console.log(res.data);   
     setAnswer(res.data.answer);
-  };
+
+  } catch (err) {
+    console.log(err);       
+    setAnswer("Error fetching response");
+  }
+};
 
   return (
     <div style={{ padding: "20px" }}>
@@ -21,7 +32,7 @@ function App() {
         placeholder="Ask something..."
       />
 
-      <button onClick={handleSubmit}>Ask</button>
+      <button onClick={askAI}>Ask</button>
 
       <p><strong>Answer:</strong> {answer}</p>
     </div>
